@@ -32,4 +32,14 @@ class urinalsTest {
         assertEquals("-1", urinals.inputMethod("disk"));
     }
 
+    @Test
+    void openFile() {
+        Exception thrown = assertThrows(
+                Exception.class,
+                () -> {urinals.openFile("/Users/umangsahastransu/Desktop/Foundation of Software Eng(SER 515)/Assignments/ICA_8_Testing");},
+                "Exception was expected"
+        );
+        Assertions.assertEquals("urinal.dat file not found in the given path", thrown.getMessage());
+    }
+
 }

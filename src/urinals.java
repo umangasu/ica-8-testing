@@ -30,6 +30,33 @@ public class urinals {
         return input;
     }
 
+    public String openFile(String path) throws Exception {
+        String line = "";
+        try {
+            Path folder = Paths.get(path);
+            System.out.println("Given path of files : " + folder);
+            String filePath = folder + "/urinal.dat";
+            File file = new File(filePath);
+            if (!file.exists()) {
+                throw new FileNotFoundException("urinal.dat file not found in the given path");
+            }
+            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                while ((line = br.readLine()) != null) {
+                    System.out.println("Line : " + line);
+                }
+            }
+            catch(Exception ex) {
+                System.out.println("Exception while reading .dat file : " + ex.getMessage());
+                throw new Exception();
+            }
+        }
+        catch(Exception ex) {
+            System.out.println("Exception in outer try block : " + ex.getMessage());
+            throw ex;
+        }
+        return line;
+    }
+
 
 
 }
