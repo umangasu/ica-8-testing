@@ -61,7 +61,9 @@ class urinalsTest {
     @Test
     void maxFreeUrinals() {
         System.out.println("====== Umang Sahastransu == TEST SIX EXECUTED =======");
-        String inputString = "10001";
-        assertEquals(Integer.parseInt("1"), urinals.maxFreeUrinals(inputString));
+        String inputString1 = "10001";
+        assertEquals(Integer.parseInt("1"), urinals.maxFreeUrinals(inputString1));
+        String inputString2 = "011";
+        assertEquals(Integer.parseInt("-1"), urinals.maxFreeUrinals(inputString2));
     }
 }

@@ -16,7 +16,8 @@ public class urinals {
         urinals urinals = new urinals();
         String inputString = urinals.inputMethod("file");
         urinals.validateString(inputString);
-        urinals.writeFile(inputString);
+        int outputString = urinals.maxFreeUrinals(inputString);
+        urinals.writeFile(String.valueOf(outputString));
     }
 
     public String inputMethod(String inputMethod) throws Exception {
@@ -108,7 +109,7 @@ public class urinals {
                 }
             }
 
-        return (int) (previousCount - curCount);
+        return (int) (curCount - previousCount);
 
     }
 
