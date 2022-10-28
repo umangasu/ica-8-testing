@@ -24,7 +24,7 @@ public class urinals {
             System.out.println("Enter the string : ");
             input = newscan.nextLine();
         } else if(inputMethod.equalsIgnoreCase("file")) {
-            System.out.println("Enter the path where the file exists (Ex - /Users/umangsahastransu/IdeaProjects/ica-8-test) : ");
+            System.out.println("Enter the path where the file (urinal.dat) exists (Ex - /Users/umangsahastransu/IdeaProjects/ica-8-test) : ");
             String path = newscan.nextLine();
             input = openFile(path);
         }
@@ -68,15 +68,15 @@ public class urinals {
             throw new IllegalArgumentException("Input String has invalid number of characters");
     }
 
-//    public int maxFreeUrinals(String inputString) {
-//        int error11 = inputString.indexOf("11");
-//        if(error11 != -1)
-//            return error11;
-//
-//
-//    }
+    public int maxFreeUrinals(String inputString) {
+        int error11 = inputString.indexOf("11");
+        if(error11 != -1)
+            return -1;
+        long prevCount = inputString.chars().filter(ch -> ch == '1').count();
+        return 0;
+    }
 
-    public void writeFile(String output) throws FileNotFoundException {
+    public void writeFile(String output) throws IOException {
         try {
             boolean ruleFilePresent = false;
             String folderName = ".";
@@ -119,7 +119,7 @@ public class urinals {
         } catch(Exception exception) {
             System.out.println("File reading failed : " + exception.getMessage());
             exception.getStackTrace();
-            throw new FileNotFoundException("No files found in the given directory");
+            throw new IOException("No files found in the given directory");
         }
     }
 

@@ -57,4 +57,11 @@ class urinalsTest {
         String output = "1011000";
         assertThrows(FileNotFoundException.class, () -> urinals.writeFile(output));
     }
+
+    @Test
+    void maxFreeUrinals() {
+        System.out.println("====== Umang Sahastransu == TEST SIX EXECUTED =======");
+        String inputString = "011";
+        assertEquals(Integer.parseInt("-1"), urinals.maxFreeUrinals(inputString));
+    }
 }
