@@ -11,8 +11,7 @@ We need to implement a function that returns the maximum of free urinals as an i
 
 To execute the program:
 1. Run the main() in urinals.java
-2. Provide mode of input as "keyboard" or "file"
-3. Provide the path where the urinal.dat exists
+2. Provide the path where the urinal.dat exists
 
 
 To execute all test cases in one go:
