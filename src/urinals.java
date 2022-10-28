@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class urinals {
     public static void main(String[] args) throws Exception {
@@ -70,10 +72,44 @@ public class urinals {
 
     public int maxFreeUrinals(String inputString) {
         int error11 = inputString.indexOf("11");
-        if(error11 != -1)
+        if (error11 != -1){
             return -1;
-        long prevCount = inputString.chars().filter(ch -> ch == '1').count();
-        return 0;
+        }
+
+        long previousCount = inputString.chars().filter(ch -> ch == '1').count();
+
+        char[] ch = new char[inputString.length()];
+        for (int i = 0; i < inputString.length(); i++) {
+            ch[i] = inputString.charAt(i);
+        }
+
+        for (int i = 0; i < ch.length; i++) {
+            if (i == 0) {
+                if (ch.length == 1) {
+                    return 1 - Integer.parseInt(String.valueOf(ch[0]));
+                } else if (ch[i] == '0' && ch[i + 1] == '0') {
+                    ch[i] = '1';
+                }
+            } else if (i == ch.length - 1) {
+                if (ch[i] == '0' && ch[i - 1] == '0') {
+                    ch[i] = '1';
+                }
+            } else {
+                if (ch[i] == '0' && ch[i - 1] == '0' && ch[i + 1] == '0') {
+                    ch[i] = '1';
+                }
+            }
+        }
+            int curCount = 0;
+
+            for (char c : ch) {
+                if (c == '1') {
+                    curCount++;
+                }
+            }
+
+        return (int) (previousCount - curCount);
+
     }
 
     public void writeFile(String output) throws IOException {
