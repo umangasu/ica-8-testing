@@ -1,6 +1,8 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class urinalsTest {
 
@@ -23,6 +25,11 @@ class urinalsTest {
     void getString() {
         System.out.println("====== Umang Sahastransu == TEST ONE EXECUTED =======");
         assertEquals(false, urinals.getString());
+    }
+
+    @org.junit.jupiter.api.Test
+    void inputMethod() throws Exception {
+        assertEquals("-1", urinals.inputMethod("disk"));
     }
 
 }
