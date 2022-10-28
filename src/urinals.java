@@ -68,6 +68,14 @@ public class urinals {
             throw new IllegalArgumentException("Input String has invalid number of characters");
     }
 
+//    public int maxFreeUrinals(String inputString) {
+//        int error11 = inputString.indexOf("11");
+//        if(error11 != -1)
+//            return error11;
+//
+//
+//    }
+
     public void writeFile(String output) throws FileNotFoundException {
         try {
             boolean ruleFilePresent = false;
