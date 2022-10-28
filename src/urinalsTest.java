@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.nio.file.FileSystemException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -22,35 +25,36 @@ class urinalsTest {
     }
 
     @org.junit.jupiter.api.Test
-    void getString() {
-        System.out.println("====== Umang Sahastransu == TEST ONE EXECUTED =======");
-        assertEquals(false, urinals.getString());
-    }
-
-    @org.junit.jupiter.api.Test
     void inputMethod() throws Exception {
-        assertEquals("-1", urinals.inputMethod("disk"));
+        System.out.println("====== Umang Sahastransu == TEST ONE EXECUTED =======");
+        String testInputMethodString = "disk";
+        assertEquals("-1", urinals.inputMethod(testInputMethodString));
     }
 
     @Test
     void openFile() {
-        Exception thrown = assertThrows(
-                Exception.class,
-                () -> {urinals.openFile("/Users/umangsahastransu/Desktop/Foundation of Software Eng(SER 515)/Assignments/ICA_8_Testing");},
-                "Exception was expected"
-        );
-        Assertions.assertEquals("urinal.dat file not found in the given path", thrown.getMessage());
+        System.out.println("====== Umang Sahastransu == TEST TWO EXECUTED =======");
+        String path = ".";
+        assertThrows(IllegalArgumentException.class, () -> urinals.openFile(path));
     }
 
     @Test
     void validateString() {
-        IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> {urinals.validateString("100001");},
-                "Exception was expected"
-        );
-        assertAll(() -> assertEquals("Input String has valid characters", thrown.getMessage()),
-                () -> assertEquals("Input String has valid number of characters", thrown.getMessage()));
+        System.out.println("====== Umang Sahastransu == TEST THREE EXECUTED =======");
+        String testString1 = "100001";
+        assertThrows(IllegalArgumentException.class, () -> urinals.validateString(testString1));
+
+
+        System.out.println("====== Umang Sahastransu == TEST FOUR EXECUTED =======");
+        String testString2 = "";
+        assertThrows(IllegalArgumentException.class, () -> urinals.validateString(testString2));
+
     }
 
+    @Test
+    void writeFile() {
+        System.out.println("====== Umang Sahastransu == TEST FIVE EXECUTED =======");
+        String output = "1011000";
+        assertThrows(FileNotFoundException.class, () -> urinals.writeFile(output));
+    }
 }

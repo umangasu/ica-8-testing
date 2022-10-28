@@ -3,17 +3,15 @@
 import org.junit.jupiter.api.function.Executable;
 
 import java.io.*;
+import java.nio.file.FileSystemException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 public class urinals {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-    }
 
-    public Boolean getString() {  // checks to see if valid string
-        return true;
     }
 
     public String inputMethod(String inputMethod) throws Exception {
@@ -30,28 +28,23 @@ public class urinals {
         return input;
     }
 
-    public String openFile(String path) throws Exception {
+    public String openFile(String path) throws IOException {
         String line = "";
-        try {
-            Path folder = Paths.get(path);
-            System.out.println("Given path of files : " + folder);
-            String filePath = folder + "/urinal.dat";
-            File file = new File(filePath);
-            if (!file.exists()) {
-                throw new FileNotFoundException("urinal.dat file not found in the given path");
-            }
-            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-                while ((line = br.readLine()) != null) {
-                    System.out.println("Line : " + line);
-                }
-            }
-            catch(Exception ex) {
-                System.out.println("Exception while reading .dat file : " + ex.getMessage());
-                throw new Exception();
+        Path folder = Paths.get(path);
+        System.out.println("Given path of file : " + folder);
+        String filePath = folder + "/urinal.dat";
+        File file = new File(filePath);
+        if (!file.exists()) {
+            throw new FileNotFoundException("urinal.dat file not found in the given path");
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            while ((line = br.readLine()) != null) {
+
+                System.out.println("Line : " + line);
             }
         }
-        catch(Exception ex) {
-            System.out.println("Exception in outer try block : " + ex.getMessage());
+        catch(IOException ex) {
+            System.out.println("Exception while reading .dat file : " + ex.getMessage());
             throw ex;
         }
         return line;
@@ -66,10 +59,56 @@ public class urinals {
                 throw new IllegalArgumentException("Input String has invalid characters");
             }
         }
-        if(input.length()>20 || input.length()<1)
+        if(input.length()>20)
             throw new IllegalArgumentException("Input String has invalid number of characters");
     }
 
+    public void writeFile(String output) throws FileNotFoundException {
+        try {
+            boolean ruleFilePresent = false;
+            String folderName = ".";
+            File[] listFiles = new File(folderName).listFiles();
+            for (int i = 0; i < listFiles.length; i++) {
+                if (listFiles[i].isFile()) {
+                    String fileName = listFiles[i].getName();
+                    if (fileName.startsWith("rule")
+                            && fileName.endsWith(".txt")) {
+                        ruleFilePresent = true;
+                        int fileCounter = 1;
+                        if(fileName.charAt(4) != '.'){
+                            fileCounter = Integer.parseInt(fileName.substring(4,5))+1;
+                        }
+                        String newFileName = "./rule" + fileCounter + ".txt";
+                        File rename = new File(newFileName);
+                        boolean flag = listFiles[i].renameTo(rename);
+                        if(flag) {
+                            System.out.println("File name incremented successfully");
+                        } else {
+                            throw new FileSystemException("Bad File name");
+                        }
+                    }
+                }
+            }
+            if(!ruleFilePresent) {
+                try {
+                    File newRuleFile = new File("rule.txt");
+                    if (newRuleFile.createNewFile()) {
+                        System.out.println("File created: " + newRuleFile.getName());
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(newRuleFile));
+                        writer.write(output);
+                        writer.close();
+                    }
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    throw e;
+                }
+            }
+        } catch(Exception exception) {
+            System.out.println("File reading failed : " + exception.getMessage());
+            exception.getStackTrace();
+            throw new FileNotFoundException("No files found in the given directory");
+        }
+    }
 
 
 }
