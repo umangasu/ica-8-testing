@@ -42,4 +42,15 @@ class urinalsTest {
         Assertions.assertEquals("urinal.dat file not found in the given path", thrown.getMessage());
     }
 
+    @Test
+    void validateString() {
+        IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> {urinals.validateString("100001");},
+                "Exception was expected"
+        );
+        assertAll(() -> assertEquals("Input String has valid characters", thrown.getMessage()),
+                () -> assertEquals("Input String has valid number of characters", thrown.getMessage()));
+    }
+
 }

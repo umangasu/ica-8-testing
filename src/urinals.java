@@ -57,6 +57,19 @@ public class urinals {
         return line;
     }
 
+    public void validateString(String input) {
+        if(input.length() == 0) {
+            throw new IllegalArgumentException("Empty input string");
+        }
+        for(int i=0;i<input.length();i++) {
+            if(!(input.charAt(i) == '0' || input.charAt(i) == '1')) {
+                throw new IllegalArgumentException("Input String has invalid characters");
+            }
+        }
+        if(input.length()>20 || input.length()<1)
+            throw new IllegalArgumentException("Input String has invalid number of characters");
+    }
+
 
 
 }
