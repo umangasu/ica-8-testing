@@ -10,8 +10,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class urinals {
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
+        urinals urinals = new urinals();
+        String inputString = urinals.inputMethod("file");
+        urinals.validateString(inputString);
+        urinals.writeFile(inputString);
     }
 
     public String inputMethod(String inputMethod) throws Exception {
@@ -21,15 +24,15 @@ public class urinals {
             System.out.println("Enter the string : ");
             input = newscan.nextLine();
         } else if(inputMethod.equalsIgnoreCase("file")) {
-            System.out.println("Enter the path where the file exists : ");
+            System.out.println("Enter the path where the file exists (Ex - /Users/umangsahastransu/IdeaProjects/ica-8-test) : ");
             String path = newscan.nextLine();
-//            input = openFile(path);
+            input = openFile(path);
         }
         return input;
     }
 
     public String openFile(String path) throws IOException {
-        String line = "";
+        String str = "";
         Path folder = Paths.get(path);
         System.out.println("Given path of file : " + folder);
         String filePath = folder + "/urinal.dat";
@@ -38,16 +41,18 @@ public class urinals {
             throw new FileNotFoundException("urinal.dat file not found in the given path");
         }
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
             while ((line = br.readLine()) != null) {
-
-                System.out.println("Line : " + line);
+                str = line;
+                System.out.println("Line : " + str);
             }
         }
         catch(IOException ex) {
             System.out.println("Exception while reading .dat file : " + ex.getMessage());
             throw ex;
         }
-        return line;
+        return str;
+
     }
 
     public void validateString(String input) {
@@ -93,7 +98,7 @@ public class urinals {
                 try {
                     File newRuleFile = new File("rule.txt");
                     if (newRuleFile.createNewFile()) {
-                        System.out.println("File created: " + newRuleFile.getName());
+                        System.out.println("File created in root directory of this repo: " + newRuleFile.getName());
                         BufferedWriter writer = new BufferedWriter(new FileWriter(newRuleFile));
                         writer.write(output);
                         writer.close();
